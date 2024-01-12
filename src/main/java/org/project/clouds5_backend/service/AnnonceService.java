@@ -65,6 +65,7 @@ public class AnnonceService {
         if (optionalAnnonce.isPresent()) {
             Annonce annonceToDelete = optionalAnnonce.get();
             annonceToDelete.setEtat(10);
+            annonceRepository.save(annonceToDelete);
             return annonceToDelete;
         } else {
             throw new RuntimeException("Annonce non trouvee");
