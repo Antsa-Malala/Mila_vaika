@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-/*vhkvl */
+
 @Service
 public class AnnonceService {
     private final AnnonceRepository annonceRepository;
@@ -18,33 +18,33 @@ public class AnnonceService {
 
     public List<Annonce> getAllAnnonces() {
         List<Annonce> annonces = annonceRepository.findByEtatNot(10);
-        if(annonces.isEmpty()) {
+        if (annonces.isEmpty()) {
             return Collections.emptyList();
-        }else {
+        } else {
             return annonces;
         }
     }
 
     public Annonce getAnnonceById(String id) {
         Annonce annonce = annonceRepository.findByIdAnnonceAndEtatNot(id, 10);
-        if(annonce == null) {
+        if (annonce == null) {
             return null;
-        }else {
+        } else {
             return annonce;
         }
     }
 
     public Annonce createAnnonce(Annonce annonce) {
-        try{
+        try {
             return annonceRepository.save(annonce);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
     }
 
     public Annonce updateAnnonceById(String id, Annonce annonce) {
         Optional<Annonce> optionalAnnonce = Optional.ofNullable(annonceRepository.findByIdAnnonceAndEtatNot(id, 10));
-        if(optionalAnnonce.isPresent()){
+        if (optionalAnnonce.isPresent()) {
             Annonce annonceToUpdate = optionalAnnonce.get();
             annonceToUpdate.setDateAnnonce(annonce.getDateAnnonce());
             annonceToUpdate.setPrix(annonce.getPrix());
@@ -55,25 +55,18 @@ public class AnnonceService {
             annonceToUpdate.setUtilisateur(annonce.getUtilisateur());
             annonceRepository.save(annonceToUpdate);
             return annonceToUpdate;
-        }else{
+        } else {
             throw new RuntimeException("Annonce non trouvee");
         }
     }
 
     public Annonce deleteAnnonceById(String id) {
         Optional<Annonce> optionalAnnonce = Optional.ofNullable(annonceRepository.findByIdAnnonceAndEtatNot(id, 10));
-        if(optionalAnnonce.isPresent()){
+        if (optionalAnnonce.isPresent()) {
             Annonce annonceToDelete = optionalAnnonce.get();
-            annonceToDelete.setDateAnnonce(annonceToDelete.getDateAnnonce());
-            annonceToDelete.setPrix(annonceToDelete.getPrix());
-            annonceToDelete.setVoiture(annonceToDelete.getVoiture());
-            annonceToDelete.setVille(annonceToDelete.getVille());
-            annonceToDelete.setDescription(annonceToDelete.getDescription());
             annonceToDelete.setEtat(10);
-            annonceToDelete.setUtilisateur(annonceToDelete.getUtilisateur());
-            annonceRepository.save(annonceToDelete);
             return annonceToDelete;
-        }else {
+        } else {
             throw new RuntimeException("Annonce non trouvee");
         }
     }
