@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface AnnonceRepository extends JpaRepository<Annonce, String> {
     List<Annonce> findByEtatNot(Integer etat);
+
     Annonce findByIdAnnonceAndEtatNot(String id, Integer etat);
 }

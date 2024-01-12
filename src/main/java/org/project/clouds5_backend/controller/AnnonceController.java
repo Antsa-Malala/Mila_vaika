@@ -33,7 +33,7 @@ public class AnnonceController {
                 reponse.setErreur("Liste vide");
                 return ResponseEntity.status(404).body(reponse);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             reponse.setErreur(e.getMessage());
             return ResponseEntity.status(500).body(reponse);
         }
@@ -42,17 +42,17 @@ public class AnnonceController {
     @GetMapping("/{id}")
     public ResponseEntity<Reponse<Annonce>> getAnnonceById(@PathVariable String id) {
         Reponse<Annonce> reponse = new Reponse<>();
-        try{
+        try {
             Annonce annonce = annonceService.getAnnonceById(id);
-            if(annonce != null){
+            if (annonce != null) {
                 reponse.setData(annonce);
                 reponse.setRemarque("Annonce trouvee");
                 return ResponseEntity.ok().body(reponse);
-            }else{
+            } else {
                 reponse.setErreur("Annonce non trouvee");
                 return ResponseEntity.status(404).body(reponse);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             reponse.setErreur(e.getMessage());
             return ResponseEntity.status(500).body(reponse);
         }
@@ -61,36 +61,37 @@ public class AnnonceController {
     @PostMapping
     public ResponseEntity<Reponse<Annonce>> createAnnonce(@RequestBody Annonce annonce) {
         Reponse<Annonce> reponse = new Reponse<>();
-        try{
+        try {
             Annonce annonceCreated = annonceService.createAnnonce(annonce);
-            if(annonceCreated != null){
+            if (annonceCreated != null) {
                 reponse.setData(annonceCreated);
                 reponse.setRemarque("Annonce creee");
                 return ResponseEntity.status(201).body(reponse);
-            }else{
+            } else {
                 reponse.setErreur("Annonce non creee");
                 return ResponseEntity.status(400).body(reponse);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             reponse.setErreur(e.getMessage());
             return ResponseEntity.status(500).body(reponse);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reponse<Annonce>> updateAnnonce(@PathVariable String id, @Valid @RequestBody Annonce annonce) {
+    public ResponseEntity<Reponse<Annonce>> updateAnnonce(@PathVariable String id,
+            @Valid @RequestBody Annonce annonce) {
         Reponse<Annonce> reponse = new Reponse<>();
-        try{
+        try {
             Annonce annonce1 = annonceService.updateAnnonceById(id, annonce);
-            if(annonce1 != null){
+            if (annonce1 != null) {
                 reponse.setData(annonce1);
                 reponse.setRemarque("Annonce modifiee");
                 return ResponseEntity.ok().body(reponse);
-            }else{
+            } else {
                 reponse.setErreur("Annonce non trouvee");
                 return ResponseEntity.status(404).body(reponse);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             reponse.setErreur(e.getMessage());
             return ResponseEntity.status(500).body(reponse);
         }
@@ -99,17 +100,17 @@ public class AnnonceController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Reponse<Annonce>> deleteAnnonce(@PathVariable String id) {
         Reponse<Annonce> reponse = new Reponse<>();
-        try{
+        try {
             Annonce annonce = annonceService.deleteAnnonceById(id);
-            if(annonce != null){
+            if (annonce != null) {
                 reponse.setData(annonce);
                 reponse.setRemarque("Annonce supprimee");
                 return ResponseEntity.ok().body(reponse);
-            }else{
+            } else {
                 reponse.setErreur("Annonce non trouvee");
                 return ResponseEntity.status(404).body(reponse);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             reponse.setErreur(e.getMessage());
             return ResponseEntity.status(500).body(reponse);
         }
